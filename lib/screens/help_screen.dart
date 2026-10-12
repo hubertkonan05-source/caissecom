@@ -3,8 +3,13 @@ import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
 
 // TODO Konan : remplace par tes vrais contacts avant de publier l'app.
-const String _kContactTelephone = '+2250700000000';
-const String _kContactEmail = 'support@caissecom.app';
+const String _kContactTelephone = '+2250777045928';
+const String _kContactEmail = 'nejmadijital@gmail.com';
+
+// TODO Konan : remplace par l'adresse réelle où tu héberges les pages juridiques
+// (voir le dossier site_juridique), sans oublier le nom du fichier à la fin.
+const String _kUrlConfidentialite = 'https://hubertkonan05-source.github.io/caissecom/confidentialite.html';
+const String _kUrlConditions = 'https://hubertkonan05-source.github.io/caissecom/conditions.html';
 
 class HelpScreen extends StatelessWidget {
   const HelpScreen({super.key});
@@ -133,6 +138,10 @@ class HelpScreen extends StatelessWidget {
     await launchUrl(uri);
   }
 
+  Future<void> _ouvrirLien(String url) async {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+  }
+
   Future<void> _ecrireSupport() async {
     final uri = Uri(scheme: 'mailto', path: _kContactEmail);
     await launchUrl(uri);
@@ -165,6 +174,27 @@ class HelpScreen extends StatelessWidget {
             ...section.items.map((item) => _FaqTile(item: item)),
           ],
           const SizedBox(height: 24),
+
+          const Padding(
+            padding: EdgeInsets.only(bottom: 6),
+            child: Text(
+              'Informations légales',
+              style: TextStyle(fontSize: 15, fontFamily: 'serif', color: AppColors.forestDark),
+            ),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: const Text('Politique de confidentialité', style: TextStyle(fontSize: 13.5)),
+            trailing: const Icon(Icons.open_in_new, size: 18, color: AppColors.muted),
+            onTap: () => _ouvrirLien(_kUrlConfidentialite),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: const Text("Conditions d'utilisation", style: TextStyle(fontSize: 13.5)),
+            trailing: const Icon(Icons.open_in_new, size: 18, color: AppColors.muted),
+            onTap: () => _ouvrirLien(_kUrlConditions),
+          ),
+          const SizedBox(height: 16),
 
           Container(
             padding: const EdgeInsets.all(16),
